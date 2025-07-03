@@ -1,20 +1,21 @@
 # Copyright 2015 The BoringSSL Authors
 #
-# Permission to use, copy, modify, and/or distribute this software for any
-# purpose with or without fee is hereby granted, provided that the above
-# copyright notice and this permission notice appear in all copies.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
-# SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
-# OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
-# CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # This file is created by generate_build_files.py. Do not edit manually.
 
 crypto_sources := \
+  src/crypto/aes/aes.cc\
   src/crypto/asn1/a_bitstr.cc\
   src/crypto/asn1/a_bool.cc\
   src/crypto/asn1/a_d2i_fp.cc\
@@ -55,8 +56,11 @@ crypto_sources := \
   src/crypto/bio/socket.cc\
   src/crypto/bio/socket_helper.cc\
   src/crypto/blake2/blake2.cc\
-  src/crypto/bn_extra/bn_asn1.cc\
-  src/crypto/bn_extra/convert.cc\
+  src/crypto/bn/bn_asn1.cc\
+  src/crypto/bn/convert.cc\
+  src/crypto/bn/div.cc\
+  src/crypto/bn/exponentiation.cc\
+  src/crypto/bn/sqrt.cc\
   src/crypto/buf/buf.cc\
   src/crypto/bytestring/asn1_compat.cc\
   src/crypto/bytestring/ber.cc\
@@ -64,17 +68,19 @@ crypto_sources := \
   src/crypto/bytestring/cbs.cc\
   src/crypto/bytestring/unicode.cc\
   src/crypto/chacha/chacha.cc\
-  src/crypto/cipher_extra/cipher_extra.cc\
-  src/crypto/cipher_extra/derive_key.cc\
-  src/crypto/cipher_extra/e_aesctrhmac.cc\
-  src/crypto/cipher_extra/e_aesgcmsiv.cc\
-  src/crypto/cipher_extra/e_chacha20poly1305.cc\
-  src/crypto/cipher_extra/e_des.cc\
-  src/crypto/cipher_extra/e_null.cc\
-  src/crypto/cipher_extra/e_rc2.cc\
-  src/crypto/cipher_extra/e_rc4.cc\
-  src/crypto/cipher_extra/e_tls.cc\
-  src/crypto/cipher_extra/tls_cbc.cc\
+  src/crypto/cipher/derive_key.cc\
+  src/crypto/cipher/e_aesctrhmac.cc\
+  src/crypto/cipher/e_aeseax.cc\
+  src/crypto/cipher/e_aesgcmsiv.cc\
+  src/crypto/cipher/e_chacha20poly1305.cc\
+  src/crypto/cipher/e_des.cc\
+  src/crypto/cipher/e_null.cc\
+  src/crypto/cipher/e_rc2.cc\
+  src/crypto/cipher/e_rc4.cc\
+  src/crypto/cipher/e_tls.cc\
+  src/crypto/cipher/get_cipher.cc\
+  src/crypto/cipher/tls_cbc.cc\
+  src/crypto/cms/cms.cc\
   src/crypto/conf/conf.cc\
   src/crypto/cpu_aarch64_apple.cc\
   src/crypto/cpu_aarch64_fuchsia.cc\
@@ -90,16 +96,17 @@ crypto_sources := \
   src/crypto/curve25519/curve25519_64_adx.cc\
   src/crypto/curve25519/spake25519.cc\
   src/crypto/des/des.cc\
-  src/crypto/dh_extra/dh_asn1.cc\
-  src/crypto/dh_extra/params.cc\
-  src/crypto/digest_extra/digest_extra.cc\
+  src/crypto/dh/dh_asn1.cc\
+  src/crypto/dh/params.cc\
+  src/crypto/digest/digest_extra.cc\
   src/crypto/dsa/dsa.cc\
   src/crypto/dsa/dsa_asn1.cc\
-  src/crypto/ec_extra/ec_asn1.cc\
-  src/crypto/ec_extra/ec_derive.cc\
-  src/crypto/ec_extra/hash_to_curve.cc\
-  src/crypto/ecdh_extra/ecdh_extra.cc\
-  src/crypto/ecdsa_extra/ecdsa_asn1.cc\
+  src/crypto/ec/ec_asn1.cc\
+  src/crypto/ec/ec_derive.cc\
+  src/crypto/ec/hash_to_curve.cc\
+  src/crypto/ecdh/ecdh.cc\
+  src/crypto/ecdsa/ecdsa_asn1.cc\
+  src/crypto/ecdsa/ecdsa_p1363.cc\
   src/crypto/engine/engine.cc\
   src/crypto/err/err.cc\
   src/crypto/evp/evp.cc\
@@ -124,6 +131,7 @@ crypto_sources := \
   src/crypto/ex_data.cc\
   src/crypto/fipsmodule/bcm.cc\
   src/crypto/fipsmodule/fips_shared_support.cc\
+  src/crypto/fuzzer_mode.cc\
   src/crypto/hpke/hpke.cc\
   src/crypto/hrss/hrss.cc\
   src/crypto/kyber/kyber.cc\
@@ -152,27 +160,28 @@ crypto_sources := \
   src/crypto/poly1305/poly1305_arm.cc\
   src/crypto/poly1305/poly1305_vec.cc\
   src/crypto/pool/pool.cc\
-  src/crypto/rand_extra/deterministic.cc\
-  src/crypto/rand_extra/fork_detect.cc\
-  src/crypto/rand_extra/forkunsafe.cc\
-  src/crypto/rand_extra/getentropy.cc\
-  src/crypto/rand_extra/ios.cc\
-  src/crypto/rand_extra/passive.cc\
-  src/crypto/rand_extra/rand_extra.cc\
-  src/crypto/rand_extra/trusty.cc\
-  src/crypto/rand_extra/urandom.cc\
-  src/crypto/rand_extra/windows.cc\
+  src/crypto/rand/deterministic.cc\
+  src/crypto/rand/fork_detect.cc\
+  src/crypto/rand/forkunsafe.cc\
+  src/crypto/rand/getentropy.cc\
+  src/crypto/rand/ios.cc\
+  src/crypto/rand/passive.cc\
+  src/crypto/rand/rand.cc\
+  src/crypto/rand/trusty.cc\
+  src/crypto/rand/urandom.cc\
+  src/crypto/rand/windows.cc\
   src/crypto/rc4/rc4.cc\
   src/crypto/refcount.cc\
-  src/crypto/rsa_extra/rsa_asn1.cc\
-  src/crypto/rsa_extra/rsa_crypt.cc\
-  src/crypto/rsa_extra/rsa_extra.cc\
-  src/crypto/rsa_extra/rsa_print.cc\
+  src/crypto/rsa/rsa_asn1.cc\
+  src/crypto/rsa/rsa_crypt.cc\
+  src/crypto/rsa/rsa_extra.cc\
+  src/crypto/rsa/rsa_print.cc\
   src/crypto/sha/sha1.cc\
   src/crypto/sha/sha256.cc\
   src/crypto/sha/sha512.cc\
   src/crypto/siphash/siphash.cc\
   src/crypto/slhdsa/slhdsa.cc\
+  src/crypto/spake2plus/spake2plus.cc\
   src/crypto/stack/stack.cc\
   src/crypto/thread.cc\
   src/crypto/thread_none.cc\
@@ -251,16 +260,17 @@ crypto_sources := \
   src/crypto/x509/x_val.cc\
   src/crypto/x509/x_x509.cc\
   src/crypto/x509/x_x509a.cc\
+  src/crypto/xwing/xwing.cc\
   src/gen/crypto/err_data.cc\
 
 crypto_sources_asm := \
   src/crypto/curve25519/asm/x25519-asm-arm.S\
   src/crypto/hrss/asm/poly_rq_mul.S\
   src/crypto/poly1305/poly1305_arm_asm.S\
-  src/gen/bcm/aes-gcm-avx10-x86_64-apple.S\
-  src/gen/bcm/aes-gcm-avx10-x86_64-linux.S\
   src/gen/bcm/aes-gcm-avx2-x86_64-apple.S\
   src/gen/bcm/aes-gcm-avx2-x86_64-linux.S\
+  src/gen/bcm/aes-gcm-avx512-x86_64-apple.S\
+  src/gen/bcm/aes-gcm-avx512-x86_64-linux.S\
   src/gen/bcm/aesni-gcm-x86_64-apple.S\
   src/gen/bcm/aesni-gcm-x86_64-linux.S\
   src/gen/bcm/aesni-x86-apple.S\
@@ -385,188 +395,4 @@ crypto_sources_asm := \
   src/third_party/fiat/asm/fiat_curve25519_adx_square.S\
   src/third_party/fiat/asm/fiat_p256_adx_mul.S\
   src/third_party/fiat/asm/fiat_p256_adx_sqr.S\
-
-crypto_sources_nasm := \
-  src/gen/bcm/aes-gcm-avx10-x86_64-win.asm\
-  src/gen/bcm/aes-gcm-avx2-x86_64-win.asm\
-  src/gen/bcm/aesni-gcm-x86_64-win.asm\
-  src/gen/bcm/aesni-x86-win.asm\
-  src/gen/bcm/aesni-x86_64-win.asm\
-  src/gen/bcm/bn-586-win.asm\
-  src/gen/bcm/co-586-win.asm\
-  src/gen/bcm/ghash-ssse3-x86-win.asm\
-  src/gen/bcm/ghash-ssse3-x86_64-win.asm\
-  src/gen/bcm/ghash-x86-win.asm\
-  src/gen/bcm/ghash-x86_64-win.asm\
-  src/gen/bcm/p256-x86_64-asm-win.asm\
-  src/gen/bcm/p256_beeu-x86_64-asm-win.asm\
-  src/gen/bcm/rdrand-x86_64-win.asm\
-  src/gen/bcm/rsaz-avx2-win.asm\
-  src/gen/bcm/sha1-586-win.asm\
-  src/gen/bcm/sha1-x86_64-win.asm\
-  src/gen/bcm/sha256-586-win.asm\
-  src/gen/bcm/sha256-x86_64-win.asm\
-  src/gen/bcm/sha512-586-win.asm\
-  src/gen/bcm/sha512-x86_64-win.asm\
-  src/gen/bcm/vpaes-x86-win.asm\
-  src/gen/bcm/vpaes-x86_64-win.asm\
-  src/gen/bcm/x86-mont-win.asm\
-  src/gen/bcm/x86_64-mont-win.asm\
-  src/gen/bcm/x86_64-mont5-win.asm\
-  src/gen/crypto/aes128gcmsiv-x86_64-win.asm\
-  src/gen/crypto/chacha-x86-win.asm\
-  src/gen/crypto/chacha-x86_64-win.asm\
-  src/gen/crypto/chacha20_poly1305_x86_64-win.asm\
-  src/gen/crypto/md5-586-win.asm\
-  src/gen/crypto/md5-x86_64-win.asm\
-  src/gen/test_support/trampoline-x86-win.asm\
-  src/gen/test_support/trampoline-x86_64-win.asm\
-
-ssl_sources := \
-  src/ssl/bio_ssl.cc\
-  src/ssl/d1_both.cc\
-  src/ssl/d1_lib.cc\
-  src/ssl/d1_pkt.cc\
-  src/ssl/d1_srtp.cc\
-  src/ssl/dtls_method.cc\
-  src/ssl/dtls_record.cc\
-  src/ssl/encrypted_client_hello.cc\
-  src/ssl/extensions.cc\
-  src/ssl/handoff.cc\
-  src/ssl/handshake.cc\
-  src/ssl/handshake_client.cc\
-  src/ssl/handshake_server.cc\
-  src/ssl/s3_both.cc\
-  src/ssl/s3_lib.cc\
-  src/ssl/s3_pkt.cc\
-  src/ssl/ssl_aead_ctx.cc\
-  src/ssl/ssl_asn1.cc\
-  src/ssl/ssl_buffer.cc\
-  src/ssl/ssl_cert.cc\
-  src/ssl/ssl_cipher.cc\
-  src/ssl/ssl_credential.cc\
-  src/ssl/ssl_file.cc\
-  src/ssl/ssl_key_share.cc\
-  src/ssl/ssl_lib.cc\
-  src/ssl/ssl_privkey.cc\
-  src/ssl/ssl_session.cc\
-  src/ssl/ssl_stat.cc\
-  src/ssl/ssl_transcript.cc\
-  src/ssl/ssl_versions.cc\
-  src/ssl/ssl_x509.cc\
-  src/ssl/t1_enc.cc\
-  src/ssl/tls13_both.cc\
-  src/ssl/tls13_client.cc\
-  src/ssl/tls13_enc.cc\
-  src/ssl/tls13_server.cc\
-  src/ssl/tls_method.cc\
-  src/ssl/tls_record.cc\
-
-tool_sources := \
-  src/tool/args.cc\
-  src/tool/ciphers.cc\
-  src/tool/client.cc\
-  src/tool/const.cc\
-  src/tool/digest.cc\
-  src/tool/fd.cc\
-  src/tool/file.cc\
-  src/tool/generate_ech.cc\
-  src/tool/generate_ed25519.cc\
-  src/tool/genrsa.cc\
-  src/tool/pkcs12.cc\
-  src/tool/rand.cc\
-  src/tool/server.cc\
-  src/tool/sign.cc\
-  src/tool/speed.cc\
-  src/tool/tool.cc\
-  src/tool/transport_common.cc\
-
-test_support_sources := \
-  src/crypto/test/abi_test.cc\
-  src/crypto/test/file_test.cc\
-  src/crypto/test/file_test_gtest.cc\
-  src/crypto/test/file_util.cc\
-  src/crypto/test/test_data.cc\
-  src/crypto/test/test_util.cc\
-  src/crypto/test/wycheproof_util.cc\
-
-crypto_test_sources := \
-  src/crypto/abi_self_test.cc\
-  src/crypto/asn1/asn1_test.cc\
-  src/crypto/base64/base64_test.cc\
-  src/crypto/bio/bio_test.cc\
-  src/crypto/blake2/blake2_test.cc\
-  src/crypto/buf/buf_test.cc\
-  src/crypto/bytestring/bytestring_test.cc\
-  src/crypto/chacha/chacha_test.cc\
-  src/crypto/cipher_extra/aead_test.cc\
-  src/crypto/cipher_extra/cipher_test.cc\
-  src/crypto/compiler_test.cc\
-  src/crypto/conf/conf_test.cc\
-  src/crypto/constant_time_test.cc\
-  src/crypto/cpu_arm_linux_test.cc\
-  src/crypto/crypto_test.cc\
-  src/crypto/curve25519/ed25519_test.cc\
-  src/crypto/curve25519/spake25519_test.cc\
-  src/crypto/curve25519/x25519_test.cc\
-  src/crypto/dh_extra/dh_test.cc\
-  src/crypto/digest_extra/digest_test.cc\
-  src/crypto/dsa/dsa_test.cc\
-  src/crypto/ecdh_extra/ecdh_test.cc\
-  src/crypto/err/err_test.cc\
-  src/crypto/evp/evp_extra_test.cc\
-  src/crypto/evp/evp_test.cc\
-  src/crypto/evp/pbkdf_test.cc\
-  src/crypto/evp/scrypt_test.cc\
-  src/crypto/fipsmodule/aes/aes_test.cc\
-  src/crypto/fipsmodule/bn/bn_test.cc\
-  src/crypto/fipsmodule/cmac/cmac_test.cc\
-  src/crypto/fipsmodule/ec/ec_test.cc\
-  src/crypto/fipsmodule/ec/p256-nistz_test.cc\
-  src/crypto/fipsmodule/ec/p256_test.cc\
-  src/crypto/fipsmodule/ecdsa/ecdsa_test.cc\
-  src/crypto/fipsmodule/hkdf/hkdf_test.cc\
-  src/crypto/fipsmodule/keccak/keccak_test.cc\
-  src/crypto/fipsmodule/modes/gcm_test.cc\
-  src/crypto/fipsmodule/rand/ctrdrbg_test.cc\
-  src/crypto/fipsmodule/service_indicator/service_indicator_test.cc\
-  src/crypto/fipsmodule/sha/sha_test.cc\
-  src/crypto/hmac_extra/hmac_test.cc\
-  src/crypto/hpke/hpke_test.cc\
-  src/crypto/hrss/hrss_test.cc\
-  src/crypto/impl_dispatch_test.cc\
-  src/crypto/kyber/kyber_test.cc\
-  src/crypto/lhash/lhash_test.cc\
-  src/crypto/md5/md5_test.cc\
-  src/crypto/mldsa/mldsa_test.cc\
-  src/crypto/mlkem/mlkem_test.cc\
-  src/crypto/obj/obj_test.cc\
-  src/crypto/pem/pem_test.cc\
-  src/crypto/pkcs7/pkcs7_test.cc\
-  src/crypto/pkcs8/pkcs12_test.cc\
-  src/crypto/pkcs8/pkcs8_test.cc\
-  src/crypto/poly1305/poly1305_test.cc\
-  src/crypto/pool/pool_test.cc\
-  src/crypto/rand_extra/fork_detect_test.cc\
-  src/crypto/rand_extra/getentropy_test.cc\
-  src/crypto/rand_extra/rand_test.cc\
-  src/crypto/refcount_test.cc\
-  src/crypto/rsa_extra/rsa_test.cc\
-  src/crypto/self_test.cc\
-  src/crypto/siphash/siphash_test.cc\
-  src/crypto/slhdsa/slhdsa_test.cc\
-  src/crypto/stack/stack_test.cc\
-  src/crypto/test/gtest_main.cc\
-  src/crypto/thread_test.cc\
-  src/crypto/trust_token/trust_token_test.cc\
-  src/crypto/x509/tab_test.cc\
-  src/crypto/x509/x509_test.cc\
-  src/crypto/x509/x509_time_test.cc\
-
-ssl_test_sources := \
-  src/crypto/test/gtest_main.cc\
-  src/ssl/span_test.cc\
-  src/ssl/ssl_c_test.c\
-  src/ssl/ssl_internal_test.cc\
-  src/ssl/ssl_test.cc\
 
